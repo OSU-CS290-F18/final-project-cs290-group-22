@@ -1,0 +1,16 @@
+<main class="content">
+    {{#if index}}
+        {{> filters}}
+    {{/if}}
+    <section id="posts">
+
+        {{#each photos}}
+            {{> photoCard}}
+        {{/each}}
+
+    </section>
+
+    {{#if index}}
+        {{> modal}}
+    {{/if}}
+</main>
