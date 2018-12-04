@@ -14,333 +14,253 @@ function insertNewPost(description, photoURL, price, city, condition){
 };
 
 
-
-/***************************************************************************
- **
- ** You should not modify any of the functions below.
- **
- ***************************************************************************/
-
-/*
- * These arrays hold the collection of all post objects and the list of all
- * cities that have been used in posts.
- */
-var allPosts = [];
-var allCities = [];
-
-/*
- * This function checks whether all of the required inputs were supplied by
- * the user and, if so,i nserting a new post into the page constructed using
- * these inputs.  If the user did not supply a required input, they instead
- * recieve an alert, and no new post is inserted.
- */
-function handleModalAcceptClick() {
-
-  var description = document.getElementById('post-text-input').value.trim();
-  var photoURL = document.getElementById('post-photo-input').value.trim();
-  var price = document.getElementById('post-price-input').value.trim();
-  var city = document.getElementById('post-city-input').value.trim();
-  var condition = document.querySelector('#post-condition-fieldset input:checked').value;
-
-  if (!description || !photoURL || !price || !city || !condition) {
-    alert("You must fill in all of the fields!");
-  } else {
-
-    allPosts.push({
-      description: description,
-      photoURL: photoURL,
-      price: price,
-      city: city,
-      condition: condition
-    });
-
-    clearFiltersAndReinsertPosts();
-
-    addCityToAllCities(city);
-
-    hideSellSomethingModal();
-
-  }
-
+var posts = [];
+window.onload = function(){
+    var content = document.getElementsByClassName('post');
+    for(i =0; i < content.length; i++){
+	       posts.push(content[i]);
+	}
+    get_all_posts();
 }
 
 
-/*
- * This function clears all filter values, causing all posts to be re-inserted
- * into the DOM.
- */
-function clearFiltersAndReinsertPosts() {
-
-  document.getElementById('filter-text').value = "";
-  document.getElementById('filter-min-price').value = "";
-  document.getElementById('filter-max-price').value = "";
-  document.getElementById('filter-city').value = "";
-
-  var filterConditionCheckedInputs = document.querySelectorAll("#filter-condition input");
-  for (var i = 0; i < filterConditionCheckedInputs.length; i++) {
-    filterConditionCheckedInputs[i].checked = false;
-  }
-
-  doFilterUpdate();
-
+function get_all_posts(){
+	var result  = [];
+	var content = document.getElementsByClassName('post');
+	for(i =0; i < content.length; i++){
+		result.push(content[i]);
+	}
+	return result;
 }
 
 
-/*
- * This function checks to see if a city is included in the collection of all
- * cities for which we have a post.  If it's not, the new city is added to the
- * collection.
- */
-function addCityToAllCities(city) {
-
-  /*
-   * If city doesn't already exist in the list of cities by which we can
-   * filter, add it.
-   */
-  if (allCities.indexOf(city.toLowerCase()) === -1) {
-    allCities.push(city.toLowerCase());
-    var newCityOption = createCityOption(city);
-    var filterCitySelect = document.getElementById('filter-city');
-    filterCitySelect.appendChild(newCityOption);
-  }
-
+function add_all_posts(){
+	for(i = 0; i < posts.length; i++){
+		document.getElementById("posts").appendChild(posts[i]);
+	}
 }
 
 
-/*
- * This function shows the "sell something" modal by removing the "hidden"
- * class from the modal and backdrop.
- */
-function showSellSomethingModal() {
-
-  var showSomethingModal = document.getElementById('sell-something-modal');
-  var modalBackdrop = document.getElementById('modal-backdrop');
-
-  showSomethingModal.classList.remove('hidden');
-  modalBackdrop.classList.remove('hidden');
-
+function remove_post(arr,index){
+	document.getElementById("posts").removeChild(arr[index]);
+	return true;
 }
 
 
-/*
- * This function clears any user-entered inputs in the "sell something" modal.
- */
-function clearSellSomethingModalInputs() {
 
-  var postTextInputElements = [
-    document.getElementById('post-text-input'),
-    document.getElementById('post-photo-input'),
-    document.getElementById('post-price-input'),
-    document.getElementById('post-city-input')
-  ];
-
-  /*
-   * Clear any text entered in the text inputs.
-   */
-  postTextInputElements.forEach(function (inputElem) {
-    inputElem.value = '';
-  });
-
-  /*
-   * Grab the originally checked radio button and make sure it's checked.
-   */
-  var checkedPostConditionButton = document.querySelector('#post-condition-fieldset input[checked]');
-  checkedPostConditionButton.checked = true;
+function apply_filter(text, min_price, max_price, city, checked_items){
+	add_all_posts();
+	set_text_filter(text, get_all_posts());
+	set_price_filter(parseInt(min_price),parseInt(max_price), get_all_posts());
+	set_city_filter(city, get_all_posts());
+	set_condition_filter(checked_items,get_all_posts());
 
 }
 
-
-/*
- * This function hides the "sell something" modal by adding the "hidden"
- * class from the modal and backdrop.  It also clears any existing inputs in
- * the modal's input fields when the modal is hidden.
- */
-function hideSellSomethingModal() {
-
-  var showSomethingModal = document.getElementById('sell-something-modal');
-  var modalBackdrop = document.getElementById('modal-backdrop');
-
-  showSomethingModal.classList.add('hidden');
-  modalBackdrop.classList.add('hidden');
-
-  clearSellSomethingModalInputs();
-
+function input_is_empty(){
+	var inputs = document.querySelectorAll('.modal-body input')
+	for(i =0; i < 4; i++ ){
+		if(inputs[i].value == ""){
+			alert("You have entered an invalid input. Please try again.");
+			return false;
+		}
+	}
+	return true;
 }
 
 
-/*
- * This function creates a new <option> element containing a given city name.
- */
-function createCityOption(city) {
-  var newCityOption = document.createElement('option');
-  newCityOption.textContent = city;
-  return newCityOption;
-}
+ var modal = document.getElementById('sell-something-modal');
+ var modal_backdrop = document.getElementById('modal-backdrop');
+ var modal_open_btn = document.getElementById('sell-something-button');
+ var modal_close_btn = document.getElementById('modal-close');
+
+ var modal_accept_btn = document.getElementById('modal-accept');
+ var modal_cancel_btn = document.getElementById('modal-cancel');
 
 
-/*
- * A function to apply the current filters to a specific post.  Returns true
- * if the post passes the filters and should be displayed and false otherwise.
- */
-function postPassesFilters(post, filters) {
-
-  if (filters.text) {
-    var postDescription = post.description.toLowerCase();
-    var filterText = filters.text.toLowerCase();
-    if (postDescription.indexOf(filterText) === -1) {
-      return false;
-    }
-  }
-
-  if (filters.minPrice) {
-    var filterMinPrice = Number(filters.minPrice);
-    if (Number(post.price) < filterMinPrice) {
-      return false;
-    }
-  }
-
-  if (filters.maxPrice) {
-    var filterMaxPrice = Number(filters.maxPrice);
-    if (Number(post.price) > filterMaxPrice) {
-      return false;
-    }
-  }
-
-  if (filters.city) {
-    if (post.city.toLowerCase() !== filters.city.toLowerCase()) {
-      return false;
-    }
-  }
-
-  if (filters.conditions && filters.conditions.length > 0) {
-    if (filters.conditions.indexOf(post.condition) === -1) {
-      return false;
-    }
-  }
-
-  return true;
-
-}
-
-
-/*
- * Applies the filters currently entered by the user to the set of all posts.
- * Any post that satisfies the user's filter values will be displayed,
- * including posts that are not currently being displayed because they didn't
- * satisfy an old set of filters.  Posts that don't satisfy the filters are
- * removed from the DOM.
- */
-function doFilterUpdate() {
-
-  /*
-   * Grab values of filters from user inputs.
-   */
-  var filters = {
-    text: document.getElementById('filter-text').value.trim(),
-    minPrice: document.getElementById('filter-min-price').value,
-    maxPrice: document.getElementById('filter-max-price').value,
-    city: document.getElementById('filter-city').value.trim(),
-    conditions: []
-  }
-
-  var filterConditionCheckedInputs = document.querySelectorAll("#filter-condition input:checked");
-  for (var i = 0; i < filterConditionCheckedInputs.length; i++) {
-    filters.conditions.push(filterConditionCheckedInputs[i].value);
-  }
-
-  /*
-   * Remove all "post" elements from the DOM.
-   */
-  var postContainer = document.getElementById('posts');
-  while(postContainer.lastChild) {
-    postContainer.removeChild(postContainer.lastChild);
-  }
-
-  /*
-   * Loop through the collection of all "post" elements and re-insert ones
-   * that meet the current filtering criteria.
-   */
-  allPosts.forEach(function (post) {
-    if (postPassesFilters(post, filters)) {
-      insertNewPost(post.description, post.photoURL, post.price, post.city, post.condition);
-    }
-  });
-
-}
-
-
-/*
- * This function parses an existing DOM element representing a single post
- * into an object representing that post and returns that object.  The object
- * is structured like this:
- *
- * {
- *   description: "...",
- *   photoURL: "...",
- *   price: ...,
- *   city: "...",
- *   condition: "..."
- * }
- */
-function parsePostElem(postElem) {
-
-  var post = {
-    price: postElem.getAttribute('data-price'),
-    city: postElem.getAttribute('data-city'),
-    condition: postElem.getAttribute('data-condition')
-  };
-
-  var postImageElem = postElem.querySelector('.post-image-container img');
-  post.photoURL = postImageElem.src;
-  post.description = postImageElem.alt;
-
-  return post;
-
-}
-
-
-/*
- * Wait until the DOM content is loaded, and then hook up UI interactions, etc.
- */
-window.addEventListener('DOMContentLoaded', function () {
-
-  /*
-   * Remember all of the initial post elements initially displayed in the page.
-   */
-  var postElems = document.getElementsByClassName('post');
-  for (var i = 0; i < postElems.length; i++) {
-    allPosts.push(parsePostElem(postElems[i]));
-  }
-
-  /*
-   * Grab all of the city names already in the filter dropdown.
-   */
-  var filterCitySelect = document.getElementById('filter-city');
-  if (filterCitySelect) {
-    var filterCityOptions = filterCitySelect.querySelectorAll('option:not([selected])');
-    for (var i = 0; i < filterCityOptions.length; i++) {
-      allCities.push(filterCityOptions[i].value.trim().toLowerCase());
-    }
-  }
-
-  var sellSomethingButton = document.getElementById('sell-something-button');
-  if (sellSomethingButton) {
-    sellSomethingButton.addEventListener('click', showSellSomethingModal);
-  }
-
-  var modalAcceptButton = document.getElementById('modal-accept');
-  if (modalAcceptButton) {
-    modalAcceptButton.addEventListener('click', handleModalAcceptClick);
-  }
-
-  var modalHideButtons = document.getElementsByClassName('modal-hide-button');
-  for (var i = 0; i < modalHideButtons.length; i++) {
-    modalHideButtons[i].addEventListener('click', hideSellSomethingModal);
-  }
-
-  var filterUpdateButton = document.getElementById('filter-update-button');
-  if (filterUpdateButton) {
-    filterUpdateButton.addEventListener('click', doFilterUpdate)
-  }
-
+ // Opens modal when user clicks the 'plus' button
+modal_open_btn.addEventListener("click", function() {
+    modal.style.display = "block";
+    modal_backdrop.style.display = "block";
 });
+
+
+ // Closes modal when user clicks the 'x' button
+ modal_close_btn.addEventListener("click", function() {
+     modal.style.display = "none";
+     modal_backdrop.style.display = "none";
+ });
+
+ // Closes modal when user clicks the cancel button
+ modal_cancel_btn.addEventListener("click", function() {
+     modal.style.display = "none";
+     modal_backdrop.style.display = "none";
+ });
+
+ function set_city_filter(choice, arr){
+ 	city= null;
+ 	for(var i=0; i < arr.length; i++){
+ 		city = arr[i].getAttribute('data-city');
+ 		if(choice != "" && choice != city){
+ 			remove_post(arr,i);
+ 		}
+ 	}
+ }
+
+
+ function get_checked_box(fieldset){
+ 	var checked_value = [];
+ 	var input_elements = document.getElementsByName(fieldset);
+ 	for(var i=0; i<5; ++i){
+ 		  if(input_elements[i].checked == true){
+ 			   checked_value.push(input_elements[i].value);
+ 		  }
+ 	}
+ 	return checked_value;
+ }
+
+function get_condition(fieldset){
+ 	var checked_value = [];
+ 	var input_elements = document.getElementsByName(fieldset);
+ 	for(var i=0; i<5; ++i){
+ 		  if(input_elements[i].checked == true){
+ 			   checked_value.push(input_elements[i].value);
+ 		  }
+ 	}
+ 	return checked_value;
+}
+
+function set_price_filter(minPrice,maxPrice, arr){
+	var price = null;
+	for(var i=0; i < arr.length; i++){
+		price = parseInt(arr[i].getAttribute('data-price'));
+		if(!isNaN(maxPrice) && isNaN(minPrice)){
+			if(price >  maxPrice){
+				remove_post(arr,i);
+			}
+		}else if(!isNaN(minPrice) && isNaN(maxPrice)){
+			if(price <  minPrice){
+				remove_post(arr,i);
+			}
+		}else if(!isNaN(minPrice) && !isNaN(maxPrice)){
+			if(price >  maxPrice || price <  minPrice){
+				remove_post(arr,i);
+			}
+		}
+	}
+}
+
+function set_condition_filter(filter, arr){
+	condition= null;
+	for(var i=0; i < arr.length; i++){
+		condition = arr[i].getAttribute('data-condition');
+		if(filter.length > 0 && !filter.includes(condition)){
+			remove_post(arr,i);
+		}
+	}
+}
+
+function set_text_filter(input, arr){
+	text = null;
+	if(input.trim() != ""){
+		input = input.toLowerCase().trim().split(" ");
+		for(var i=0; i < arr.length; i++){
+			text = arr[i].textContent.toLowerCase().trim().split(" ");
+			for(var j=0; j < text.length; j++){//[h,r,t]
+				if(input.includes(text[j])){
+					break;
+
+				}else if(j+1 == text.length && !input.includes(text[j]) ){
+					remove_post(arr,i);
+				}
+			}
+		}
+	}
+}
+
+
+var post_container = document.getElementById("posts");
+
+function insertNewPhotoCard() {
+	var post = document.createElement('div');
+	post.classList.add('post');
+
+	var input = document.getElementById('post-text-input').value;
+	var price = document.getElementById('post-price-input').value;
+	var city = document.getElementById('post-city-input').value;
+	var img_src = document.getElementById('post-photo-input').value;
+
+    var contents = document.createElement('div');
+    contents.classList.add('post-contents');
+
+    // Creates the image container for the post
+    var image_container = document.createElement('div');
+    image_container.classList.add('post-image-container');
+
+    var image = document.createElement('img');
+    image.src = img_src;
+
+    var post_info_container = document.createElement('div');
+    post_info_container.classList.add('post-post_info_container');
+
+    //sets the title of the post
+    var post_title = document.createElement('a');
+    post_title.classList.add('post-title');
+
+    post_title.textContent = input;
+    post_title.href = "#";
+
+    // Sets price of post
+    var post_price = document.createElement('span');
+    post_price.classList.add('post-price');
+
+    post_price.textContent = "$" + price;
+
+    // Sets the city of the post
+    var post_city = document.createElement('span');
+    post_city.classList.add('post-city');
+
+    post_city.textContent = "(" + city + ")";
+
+    // Appends all values to the new post element
+	post_container.appendChild(post);
+    post.appendChild(contents);
+    contents.appendChild(image_container);
+    image_container.appendChild(image);
+    contents.appendChild(post_info_container);
+
+    post_info_container.appendChild(post_title);
+    post_info_container.appendChild(post_price);
+    post_info_container.appendChild(post_city);
+
+
+    post.setAttribute("data-price", price);
+    post.setAttribute("data-city", city);
+    post.setAttribute("data-condition", get_checked_box('post-condition'));
+
+
+
+
+	console.log('post:', post);
+
+    posts.push(post);
+}
+
+modal_accept_btn.onclick = function() {
+    if (input_is_empty()){
+        insertNewPhotoCard();
+        modal.style.display = "none";
+        modal_backdrop.style.display = "none";
+    }
+}
+
+var update = document.querySelector('.action-button');
+update.addEventListener('click',
+	function (event) {
+		var filterText = document.getElementById("filter-text").value;
+		var min = document.getElementById("filter-min-price").value;
+		var max = document.getElementById("filter-max-price").value;
+		var filterCity = document.getElementById("filter-city").value;
+		apply_filter(filterText, min, max, filterCity,get_checked_box('filter-condition'));
+	}
+);

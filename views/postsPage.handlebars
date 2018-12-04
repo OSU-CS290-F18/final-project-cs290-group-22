@@ -5,12 +5,12 @@
     <section id="posts">
 
         {{#each photos}}
-            {{> photoCard}}
+            {{> post}}
         {{/each}}
 
     </section>
 
     {{#if index}}
-        {{> modal}}
+        {{> addPost}}
     {{/if}}
 </main>

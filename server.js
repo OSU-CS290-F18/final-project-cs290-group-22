@@ -27,7 +27,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 app.get('/', function(req, res) {
-	res.status(200).render('photoPage', {
+	res.status(200).render('postsPage', {
 		photos: postData,
 		index: 1
 	});
@@ -38,7 +38,7 @@ app.get('/posts/:index', function(req, res) {
 	var singlePostArray = [];
 	if (postData[index]) {
 		singlePostArray.push(postData[index]);
-		res.status(200).render('photoPage', {
+		res.status(200).render('postsPage', {
 			photos: singlePostArray,
 			index: 0
 		});
