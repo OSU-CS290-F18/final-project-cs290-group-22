@@ -1,9 +1,47 @@
 <main class="content">
-    {{#if index}}
-        {{> filters}}
-    {{/if}}
     <section id="posts">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        <img class="card-img-top" src="http://placekitten.com/200/50" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">OSU should lower parking pass price.</p>
+                            <div class="row text-center">
+                                <div class="col-sm">
+                                    <div class="btn btn-outline-primary btn-block">
+                                        Yes
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="btn btn-outline-primary btn-block">
+                                        No
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <img class="card-img-top" src="http://placekitten.com/200/50" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">OSU should lower parking pass price.</p>
+                            <div class="row text-center">
+                                <div class="col-sm">
+                                    <div class="btn btn-outline-primary btn-block">
+                                        Yes
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="btn btn-outline-primary btn-block">
+                                        No
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+<<<<<<< HEAD:views/postsPage.handlebars
         {{#each photos}}
             {{> post}}
         {{/each}}
@@ -13,4 +51,29 @@
     {{#if index}}
         {{> addPost}}
     {{/if}}
+=======
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <img class="card-img-top" src="http://placekitten.com/200/50" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">OSU should lower parking pass price.</p>
+                            <div class="results">
+                                <div class="results-bar blue-bar" style="width:40%"></div>
+                                <div class="results-bar red-bar"></div>
+                                <div class="results-left">
+                                    Yes: 20%
+                                </div>
+                                <div class="results-right">
+                                    No: 80%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+>>>>>>> ac6e8b74e6f4a37f5d7d9ad18c56c6c6575937e9:views/photoPage.handlebars
 </main>

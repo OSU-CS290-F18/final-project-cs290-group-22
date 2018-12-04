@@ -5,7 +5,6 @@ var fs = require('fs');
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
 require('dotenv').config()
-
 var port = process.env.PORT || 3000;
 
 var mongoHost = process.env.MONGO_HOST;
