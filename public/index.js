@@ -1,34 +1,3 @@
-/*
- * Write your JS code in this file.  Make sure to add your name and
- * @oregonstate.edu email address below.
- *
- * Name: Matthew Jordan
- * Email: Jordanma@oregonstate.edu
- */
-
-/*
- * You must update this function to use your Handlebars post template to
- * generate HTML representing a single post, given the description, photo URL,
- * price, city, and condition of the item to be sold as arguments to the
- * function.  The generated HTML should then be inserted into the DOM at the
- * end of the <section> element whose id is "posts".
- *
- * The function currently uses native JS methods to generate a new DOM element
- * representing single post, given the specified information, and inserts that
- * post into the DOM.  The new post element has the following structure:
- *
- * <div class="post" data-price="<PRICE>" data-city="<CITY>" data-condition="<CONDITION>">
- *   <div class="post-contents">
- *     <div class="post-image-container">
- *       <img src="<PHOTO_URL>" alt="<ITEM_DESCRIPTION>">
- *     </div>
- *     <div class="post-info-container">
- *       <a href="#" class="post-title"><ITEM_DESCRIPTION></a> <span class="post-price">$<PRICE></span> <span class="post-city">(<CITY>)</span>
- *     </div>
- *   </div>
- * </div>
- */
-
 function insertNewPost(description, photoURL, price, city, condition){
     var photoCardContext = {
         description: description,
@@ -44,72 +13,6 @@ function insertNewPost(description, photoURL, price, city, condition){
     photoCardContainer.insertAdjacentHTML('beforeend',photoCardHTML);
 };
 
-
-
-// function insertNewPost(description, photoURL, price, city, condition) {
-//
-//   // Create the containing <div> element.
-//   var postDiv = document.createElement('div');
-//   postDiv.classList.add('post');
-//   postDiv.setAttribute('data-price', price);
-//   postDiv.setAttribute('data-city', city);
-//   postDiv.setAttribute('data-condition', condition);
-//
-//   // Create the inner post-contents <div> and add it to the post <div>.
-//   var postContentsDiv = document.createElement('div');
-//   postContentsDiv.classList.add('post-contents');
-//   postDiv.appendChild(postContentsDiv);
-//
-//   /*
-//    * Create the post-image-container <div> and its <img> contents and add
-//    * them into the post-contents <div>.
-//    */
-//   var postImageContainerDiv = document.createElement('div');
-//   postImageContainerDiv.classList.add('post-image-container');
-//   postContentsDiv.appendChild(postImageContainerDiv);
-//
-//   var postImg = document.createElement('img');
-//   postImg.src = photoURL;
-//   postImg.alt = description;
-//   postImageContainerDiv.appendChild(postImg);
-//
-//   /*
-//    * Create the post-info-container <div> and all of its contents and add
-//    * them into the post-contents <div>.
-//    */
-//   var postInfoContainerDiv = document.createElement('div');
-//   postInfoContainerDiv.classList.add('post-info-container');
-//   postContentsDiv.appendChild(postInfoContainerDiv);
-//
-//   var postLink = document.createElement('a');
-//   postLink.classList.add('post-title');
-//   postLink.href = '#';
-//   postLink.textContent = description;
-//   postInfoContainerDiv.appendChild(postLink);
-//
-//   var spaceText1 = document.createTextNode(' ');
-//   postInfoContainerDiv.appendChild(spaceText1);
-//
-//   var postPriceSpan = document.createElement('span');
-//   postPriceSpan.classList.add('post-price');
-//   postPriceSpan.textContent = '$' + price;
-//   postInfoContainerDiv.appendChild(postPriceSpan);
-//
-//   var spaceText2 = document.createTextNode(' ');
-//   postInfoContainerDiv.appendChild(spaceText2);
-//
-//   var postCitySpan = document.createElement('span');
-//   postCitySpan.classList.add('post-city');
-//   postCitySpan.textContent = '(' + city + ')';
-//   postInfoContainerDiv.appendChild(postCitySpan);
-//
-//   /*
-//    * Add the new post element into the DOM at the end of the posts <section>.
-//    */
-//   var postsSection = document.getElementById('posts');
-//   postsSection.appendChild(postDiv);
-//
-// }
 
 
 /***************************************************************************
