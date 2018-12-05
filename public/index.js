@@ -15,21 +15,52 @@ function insertNewCard(text, answers) {
 	cardContainer.insertAdjacentHTML('beforeend', cardHTML);
 };
 
-$(document).on('click', '.btn-add', function() {
-	var controlForm = document.getElementById("add-card-form"),
-		currentEntry = $(this).parents('.entry:first'),
-		newEntry = $(currentEntry.clone()).appendTo(controlForm);
+var num_fields = 2;
+function addField(){
+	if (num_fields<4){
+		num_fields++;
+		var opinionFields = document.getElementById('opinion-input-fields');
+		var addOptionButtonContainer = document.getElementById("add-option-btn-container");
+		var newInput = document.createElement('input');
 
-	newEntry.find('input').val('');
-	controlForm.find('.entry:not(:last) .btn-add')
-		.removeClass('btn-add').addClass('btn-remove')
-		.removeClass('btn-success').addClass('btn-danger')
-		.html('<span class="glyphicon glyphicon-minus"></span>');
-}).on('click', '.btn-remove', function(e) {
-	$(this).parents('.entry:first').remove();
+		newInput.type = 'text';
+		newInput.id = 'post-answer-input-' + num_fields;
+		newInput.classList.add('form-control');
+		newInput.placeholder = 'Option ' + num_fields;
+		newInput.setAttribute('aria-label', 'Answer ' + num_fields);
+		newInput.setAttribute('aria-describedby', 'basic_addon' + num_fields);
 
-	return false;
-});
+		opinionFields.insertBefore(newInput, addOptionButtonContainer);
+	} else {
+		alert("you must have 2-4 answers per opinion!");
+	}
+}
+
+function removeField(){
+	if (num_fields>2){
+		num_fields--;
+		var opinionFields = document.getElementById('opinion-input-fields');
+		var inputToRemove = document.getElementById('post-answer-input-' + num_fields);
+
+		inputToRemove.remove();
+	} else {
+		alert("you must have 2-4 answers per opinion!");
+	}
+}
+
+
+var addOptionButton = document.getElementById('add-option-btn');
+if (addOptionButton) {
+	addOptionButton.addEventListener('click', addField);
+}
+
+var removeOptionButton = document.getElementById('remove-option-btn');
+if (removeOptionButton) {
+	removeOptionButton.addEventListener('click', removeField);
+}
+
+
+
 
 function handleModalAcceptClick() {
 	var text = document.getElementById('post-prompt-input').value.trim();
