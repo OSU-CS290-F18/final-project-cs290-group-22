@@ -42,15 +42,9 @@ function handleModalAcceptClick() {
             answers: answers
         });
 
-        updateCards();
+        insertNewCard(text, answers);
 
     }
-}
-
-function updateCards() {
-    allPosts.forEach(function(post) {
-        insertNewCard(post.text, post.answers);
-    });
 }
 
 
@@ -58,5 +52,4 @@ var modalAcceptButton = document.getElementById('modal_accept_btn');
 console.log(modalAcceptButton);
 if (modalAcceptButton) {
     modalAcceptButton.addEventListener('click', handleModalAcceptClick);
-
 }
