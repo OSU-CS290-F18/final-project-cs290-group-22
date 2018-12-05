@@ -14,6 +14,7 @@
                         <div class="space"></div>
                         <div class="space"></div>
                         {{#each post.answers}}
+                        <div class="square square-{{color ../post.answers @index}}"></div>
                             {{name}}: {{percentage ../post.answers @index}}% ({{count}} votes)
                             <br>
                         {{/each}}

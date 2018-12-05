@@ -37,7 +37,10 @@ var hbs = exphbs.create({
                 return 0;
             }
             total = (answers[index].count / total) * 100;
-            return Math.round(total);
+			if (total != 0) {
+				return Math.round(total) - 0.5;
+			}
+			return 0;
         },
         marginPercentage: function(answers, index) {
             if (index == 0) {

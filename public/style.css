@@ -49,6 +49,27 @@ main {
     background-color: #dc3545;
     border-radius: 0 10px 10px 0;
 }
+.square {
+    width: 15px;
+    height: 15px;
+    margin: 5px 10px 0 0;
+    float: left;
+}
+.square-blue {
+    background-color: #007bff;
+}
+
+.square-yellow {
+    background-color: #ffc107;
+}
+
+.square-green {
+    background-color: #28a745;
+}
+
+.square-red{
+    background-color: #dc3545;
+}
 
 .results {
     width: 90%;
