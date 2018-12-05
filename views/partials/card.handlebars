@@ -1,13 +1,13 @@
 <div class="col-sm-4">
     <div class="card">
         <div class="card-body">
-            <p class="card-text">{{text}}</p>
+            <a class="card-text" href="/post/{{_id}}">{{text}}</p>
             <div class="row text-center">
                 {{#each answers}}
                     <div class="col-sm">
-                        <div class="btn btn-outline-primary btn-block">
+                        <a class="btn btn-outline-primary btn-block" href="/post/{{../_id}}/vote/{{@index}}">
                             {{name}}
-                        </div>
+                        </a>
                     </div>
                 {{/each}}
             </div>

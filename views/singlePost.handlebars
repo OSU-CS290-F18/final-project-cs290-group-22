@@ -1,0 +1,19 @@
+<main class="content">
+    <section id="posts">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">{{post.text}}</p>
+                    <ul>
+                        {{#each post.answers}}
+                            <li>
+                                {{name}}: {{count}}
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>

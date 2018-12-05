@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
+var Mongo = require('mongodb');
 require('dotenv').config()
 var port = process.env.PORT || 3000;
 
@@ -39,18 +40,35 @@ app.get('/', function(req, res) {
 
 });
 
-app.get('/posts/:index', function(req, res) {
-	var index = req.params.index;
-	var singlePostArray = [];
-	if (postData[index]) {
-		singlePostArray.push(postData[index]);
-		res.status(200).render('postsPage', {
-			photos: singlePostArray,
-			index: 0
-		});
-	} else {
-		res.status(404).render('error');
-	}
+app.get('/post/:id/vote/:answer', function(req, res) {
+	var id = new Mongo.ObjectID(req.params.id);
+	var answer = req.params.answer;
+	var postsCollection = mongoDB.collection('posts');
+	var query = {};
+	query ["answers."+answer+".count"] = 1;
+
+	postsCollection.updateOne({"_id": id}, {$inc: query}, function(err, result) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.redirect("/post/" + id);
+		}
+	});
+});
+
+app.get('/post/:id', function(req, res) {
+	var id = new Mongo.ObjectID(req.params.id);
+	var postsCollection = mongoDB.collection('posts');
+
+	postsCollection.findOne({"_id": id}, function(err, result) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.status(200).render('singlePost', {
+				post: result
+			});
+		}
+	});
 });
 
 app.post('/newpost', function(req, res, next) {

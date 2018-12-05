@@ -17,19 +17,20 @@
                 <form id="add-card-form">
                     <div class="form-group">
                         <label for="prompt">Prompt</label>
-                        <input id="post-prompt-input" class="form-control" type="text" placeholder="Enter your prompt here">
+                        <input id="post-prompt-input" class="form-control" type="text" placeholder="Enter your question here">
                     </div>
                     <div class="form-group">
-                        <label for="opinion-answer-select">Answers</label>
+                        <label for="opinion-answer-select">Options</label>
                         <div class="input-group mb-3">
-                            <input type="text" id="post-answer-input" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
+                            <input type="text" id="post-answer-input" class="form-control" placeholder="Option 1" aria-label="Answer 1" aria-describedby="basic-addon2">
+                            <input type="text" id="post-answer-input" class="form-control" placeholder="Option 2" aria-label="Answer 2" aria-describedby="basic-addon2">
+                            <!-- <div class="input-group-append">
                                 <button class="btn btn-success" type="button">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="modal_accept_btn" type="button" class="btn btn-primary">Submit</button>
+                    <button id="modal_accept_btn" type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
