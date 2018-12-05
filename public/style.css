@@ -83,3 +83,13 @@ main {
     height: 30px;
     line-height: 0;
 }
+
+footer {
+    position: fixed;
+    background-color: #f8f9fa;
+    left: 0;
+    padding: 15px;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
