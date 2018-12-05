@@ -143,7 +143,17 @@ function clearModalInputs() {
 	}
 }
 
-var modalAcceptButton = document.getElementById('modal_accept_btn');
+var modalAcceptButton = document.getElementById('modal-accept-btn');
 if (modalAcceptButton) {
 	modalAcceptButton.addEventListener('click', handleModalAcceptClick);
+}
+
+var searchButton = document.getElementById('search-button');
+if (searchButton) {
+	searchButton.addEventListener('click', function(){
+		var query = document.getElementById('search-input').value.trim();
+		query = query.replace(' ', '+');
+		console.log(query);
+		window.location = "/search/" + query;
+	});
 }

@@ -3,11 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
-
-    <!-- This 3rd party stylesheet incorporates SVG icons from Font Awesome: http://fontawesome.com/ -->
+    <title>Opinion Site</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous">
-    <!-- Bootstrap cdns -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -21,10 +18,9 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Opinion Site</a>
-
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
         <div class="navbar-nav">
+            <a class="navbar-brand" href="/">Opinion Site</a>
             <a class="nav-item nav-link {{#if homeActive}}active{{/if}}" href="/">Home <span class="sr-only">(current)</span></a>
             {{#if homeActive}}
                 <button type="button" class="btn btn-outline-primary post-btn" data-toggle="modal" data-target="#post-opinion-modal">
@@ -32,6 +28,10 @@
                 </button>
             {{/if}}
         </div>
+        <form class="form-inline">
+            <input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button id="search-button" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+        </form>
     </nav>
     {{{body}}}
 
