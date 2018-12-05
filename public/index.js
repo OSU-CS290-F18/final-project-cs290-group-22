@@ -34,18 +34,21 @@ function addField(){
 	} else {
 		alert("you must have 2-4 answers per opinion!");
 	}
+
+	console.log(num_fields);
 }
 
 function removeField(){
 	if (num_fields>2){
-		num_fields--;
 		var opinionFields = document.getElementById('opinion-input-fields');
-		var inputToRemove = document.getElementById('post-answer-input-' + num_fields);
+		var inputToRemove = document.getElementById('post-answer-input-' +  num_fields);
 
 		inputToRemove.remove();
+		num_fields--;
 	} else {
 		alert("you must have 2-4 answers per opinion!");
 	}
+	console.log(num_fields);
 }
 
 
