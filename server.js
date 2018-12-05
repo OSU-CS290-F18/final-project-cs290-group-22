@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
 	var postsCollection = mongoDB.collection('posts');
 	postsCollection.find({}).toArray(function (err, postsDocs) {
 		res.status(200).render('postsPage', {
-			posts: postsDocs,
+			cards: postsDocs,
 			homeActive: "true"
 		});
 	});
