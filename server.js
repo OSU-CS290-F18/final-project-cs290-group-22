@@ -30,6 +30,7 @@ app.get('/', function(req, res) {
 	postsCollection.find({}).toArray(function (err, postsDocs) {
 		res.status(200).render('postsPage', {
 			posts: postsDocs,
+			homeActive: "true"
 		});
 	});
 
