@@ -26,6 +26,11 @@
 
         <div class="navbar-nav">
             <a class="nav-item nav-link {{#if homeActive}}active{{/if}}" href="/">Home <span class="sr-only">(current)</span></a>
+            {{#if homeActive}}
+                <button type="button" class="btn btn-outline-primary post-btn" data-toggle="modal" data-target="#post-opinion-modal">
+                    Post an opinion!
+                </button>
+            {{/if}}
         </div>
     </nav>
     {{{body}}}

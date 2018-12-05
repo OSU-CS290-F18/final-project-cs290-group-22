@@ -1,11 +1,12 @@
-<div class="col-sm-4">
+<div class="col-sm-4 d-flex align-items-stretch">
     <div class="card">
         <div class="card-body">
-            <a class="card-text" href="/post/{{_id}}">{{text}}</p>
+            <a class="card-text opinion" href="/post/{{_id}}">{{text}}</a>
+            <div class="space"></div>
             <div class="row text-center">
                 {{#each answers}}
-                    <div class="col-sm">
-                        <a class="btn btn-outline-primary btn-block" href="/post/{{../_id}}/vote/{{@index}}">
+                    <div class="col-sm-6" style="margin-top:10px;">
+                        <a class="btn btn-outline-primary btn-block btn-sm" href="/post/{{../_id}}/vote/{{@index}}">
                             {{name}}
                         </a>
                     </div>

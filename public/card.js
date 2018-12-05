@@ -13,11 +13,11 @@ templates['card'] = template({"1":function(container,depth0,helpers,partials,dat
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<div class=\"col-sm-4\">\n    <div class=\"card\">\n        <div class=\"card-body\">\n            <a class=\"card-text\" href=\"/post/"
+  return "<div class=\"col-sm-4 d-flex align-items-stretch\">\n    <div class=\"card\">\n        <div class=\"card-body\">\n            <a class=\"card-text card-title\" href=\"/post/"
     + alias4(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"_id","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.text || (depth0 != null ? depth0.text : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"text","hash":{},"data":data}) : helper)))
-    + "</p>\n            <div class=\"row text-center\">\n"
+    + "</a>\n            <div class=\"row text-center\">\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.answers : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "            </div>\n        </div>\n    </div>\n</div>\n";
 },"useData":true,"useDepths":true});
