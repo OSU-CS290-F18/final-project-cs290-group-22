@@ -20,14 +20,14 @@ var mongoURL = "mongodb://" +
 var mongoDB = null;
 
 var rawData = fs.readFileSync('./postData.json');
-var postData = JSON.parse(rawData); //get the post data
+var cardData = JSON.parse(rawData); //get the post data
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 app.get('/', function(req, res) {
 	res.status(200).render('postsPage', {
-		photos: postData,
+		cards: cardData,
 		index: 1
 	});
 });

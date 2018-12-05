@@ -1,10 +1,7 @@
-function insertNewPost(description, photoURL, price, city, condition){
+function insertNewCard(text, answers){
     var photoCardContext = {
-        description: description,
-        photoURL: photoURL,
-        price: price,
-        city: city,
-        condition: condition
+        text: text,
+        answers: answers
     };
 
     var photoCardHTML = Handlebars.templates.photoCard(photoCardContext);
@@ -12,7 +9,6 @@ function insertNewPost(description, photoURL, price, city, condition){
     var photoCardContainer = document.getElementById("posts");
     photoCardContainer.insertAdjacentHTML('beforeend',photoCardHTML);
 };
-
 
 var posts = [];
 window.onload = function(){
