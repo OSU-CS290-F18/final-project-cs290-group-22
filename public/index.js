@@ -6,7 +6,7 @@ function insertNewCard(text, answers) {
 
     var cardHTML = Handlebars.templates.card(cardContext);
 
-    var cardContainer = document.getElementById("posts");
+    var cardContainer = document.getElementById("cards-container");
     cardContainer.insertAdjacentHTML('beforeend', cardHTML);
 };
 
