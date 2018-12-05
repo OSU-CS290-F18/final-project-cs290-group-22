@@ -17,7 +17,11 @@ function insertNewCard(text, answers) {
 
 var num_fields = 2;
 function addField(){
+	var errorText = document.getElementById('post-error-text');
+
 	if (num_fields<4){
+		errorText.style.visibility = 'hidden';
+
 		num_fields++;
 		var opinionFields = document.getElementById('opinion-input-fields');
 		var addOptionButtonContainer = document.getElementById("add-option-btn-container");
@@ -32,21 +36,24 @@ function addField(){
 
 		opinionFields.insertBefore(newInput, addOptionButtonContainer);
 	} else {
-		alert("you must have 2-4 answers per opinion!");
+		errorText.style.visibility = 'visible';
 	}
 
 	console.log(num_fields);
 }
 
 function removeField(){
+	var errorText = document.getElementById('post-error-text');
+
 	if (num_fields>2){
+		errorText.style.visibility = 'hidden';
+
 		var opinionFields = document.getElementById('opinion-input-fields');
 		var inputToRemove = document.getElementById('post-answer-input-' +  num_fields);
-
 		inputToRemove.remove();
 		num_fields--;
 	} else {
-		alert("you must have 2-4 answers per opinion!");
+		errorText.style.visibility = 'visible';
 	}
 	console.log(num_fields);
 }
@@ -66,9 +73,16 @@ if (removeOptionButton) {
 
 
 function handleModalAcceptClick() {
+	while(num_fields<2){
+		removeField();
+		num_fields--;
+	}
 	var text = document.getElementById('post-prompt-input').value.trim();
 	var answer1 = document.getElementById('post-answer-input-1').value.trim();
 	var answer2 = document.getElementById('post-answer-input-2').value.trim();
+	var answer3 = document.getElementById('post-answer-input-3');
+	var answer4 = document.getElementById('post-answer-input-4');
+
 
 	if (!text || !answer1 || !answer2) {
 		alert("You must fill in all of the fields!");
@@ -76,7 +90,7 @@ function handleModalAcceptClick() {
 		var postRequest = new XMLHttpRequest();
 		var requestURL = '/newpost';
 		postRequest.open('POST', requestURL);
-		var requestBody = JSON.stringify({
+		var requestBody = {
 			text: text,
 			answers: [
 				{
@@ -88,7 +102,24 @@ function handleModalAcceptClick() {
 					count: 0
                 }
             ]
-		});
+		};
+
+		if(answer3){
+			requestBody.answers.push({
+				name: answer3.value.trim(),
+				count:0
+			});
+		}
+
+		if (answer4){
+			requestBody.answers.push({
+				name: answer4.value.trim(),
+				count:0
+			});
+		}
+		console.log(requestBody);
+
+		requestBody = JSON.stringify(requestBody);
 
 		postRequest.addEventListener('load', function(event) {
 			if (event.target.status === 200) {
