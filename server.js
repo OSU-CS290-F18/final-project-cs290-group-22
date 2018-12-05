@@ -1,6 +1,7 @@
 var path = require('path');
 var express = require('express');
 var exphbs = require('express-handlebars');
+var bodyParser = require('body-parser');
 var fs = require('fs');
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
@@ -24,10 +25,12 @@ var cardData = JSON.parse(rawData); //get the post data
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
 app.get('/', function(req, res) {
 	var postsCollection = mongoDB.collection('posts');
-	postsCollection.find({}).toArray(function (err, postsDocs) {
+	postsCollection.find({}).toArray(function(err, postsDocs) {
 		res.status(200).render('postsPage', {
 			cards: postsDocs,
 			homeActive: "true"
@@ -50,7 +53,15 @@ app.get('/posts/:index', function(req, res) {
 	}
 });
 
-app.use(express.static('public'));
+app.post('/newpost', function(req, res, next) {
+	if (req.body && req.body.text && req.body.answers) {
+		var postsCollection = mongoDB.collection('posts');
+		postsCollection.insertOne(req.body);
+		res.status(200).send("Success");
+	} else {
+		res.status(400).send("Request needs a body with a URL and caption");
+	}
+});
 
 app.get('*', function(req, res) {
 	res.status(404).render('error');

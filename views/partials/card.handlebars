@@ -1,14 +1,16 @@
-<div class="card">
-    <div class="card-body">
-        <p class="card-text">{{text}}</p>
-        <div class="row text-center">
-            {{#each answers}}
-            <div class="col-sm">
-                <div class="btn btn-outline-primary btn-block">
-                    {{text}}
-                </div>
+<div class="col-sm-4">
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">{{text}}</p>
+            <div class="row text-center">
+                {{#each answers}}
+                    <div class="col-sm">
+                        <div class="btn btn-outline-primary btn-block">
+                            {{name}}
+                        </div>
+                    </div>
+                {{/each}}
             </div>
-            {{/each}}
         </div>
     </div>
 </div>
