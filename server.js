@@ -24,7 +24,19 @@ var mongoDB = null;
 var rawData = fs.readFileSync('./postData.json');
 var cardData = JSON.parse(rawData); //get the post data
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+var hbs = exphbs.create({
+	defaultLayout: 'main',
+    // Specify helpers which are only registered on this instance.
+    helpers: {
+        percentage: function (votesOne, votesTwo) {
+		  var total = votesOne.count + votesTwo.count;
+		  total = (votesOne.count/total)*100;
+		  return Math.round(total);
+		}
+    }
+});
+
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -34,7 +46,7 @@ app.get('/', function(req, res) {
 	postsCollection.find({}).toArray(function(err, postsDocs) {
 		res.status(200).render('postsPage', {
 			cards: postsDocs,
-			homeActive: "true"
+			homeActive: "true",
 		});
 	});
 

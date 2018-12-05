@@ -3,13 +3,13 @@
 templates['card'] = template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var helper, alias1=container.escapeExpression, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=helpers.helperMissing, alias4="function";
 
-  return "                    <div class=\"col-sm\">\n\n                        <a href=\"/post/"
+  return "                    <div class=\"col-sm\">\n                        <a class=\"btn btn-outline-primary btn-block\" href=\"/post/"
     + alias1(container.lambda((depths[1] != null ? depths[1]._id : depths[1]), depth0))
     + "/vote/"
     + alias1(((helper = (helper = helpers.index || (data && data.index)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"index","hash":{},"data":data}) : helper)))
     + "\">\n                            "
     + alias1(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper)))
-    + "\n                        </div>\n                    </div>\n";
+    + "\n                        </a>\n                    </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 

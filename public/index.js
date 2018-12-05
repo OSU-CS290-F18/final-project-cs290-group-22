@@ -33,9 +33,10 @@ $(document).on('click', '.btn-add', function() {
 
 function handleModalAcceptClick() {
 	var text = document.getElementById('post-prompt-input').value.trim();
-	var answer = document.getElementById('post-answer-input').value.trim();
+	var answer1 = document.getElementById('post-answer-input-1').value.trim();
+	var answer2 = document.getElementById('post-answer-input-2').value.trim();
 
-	if (!text || !answer) {
+	if (!text || !answer1 || !answer2) {
 		alert("You must fill in all of the fields!");
 	} else {
 		var postRequest = new XMLHttpRequest();
@@ -45,7 +46,11 @@ function handleModalAcceptClick() {
 			text: text,
 			answers: [
 				{
-					name: answer,
+					name: answer1,
+					count: 0
+                },
+				{
+					name: answer2,
 					count: 0
                 }
             ]
@@ -53,7 +58,7 @@ function handleModalAcceptClick() {
 
 		postRequest.addEventListener('load', function(event) {
 			if (event.target.status === 200) {
-				insertNewCard(text, answer);
+				location.reload();
 			} else {
 				alert("Error storing photo: " + event.target.response);
 			}
