@@ -2,6 +2,9 @@
     <section id="posts">
         <div class="container">
             <div class="row">
+                {{#each posts}}
+                    {{> opinionUnanswered}}
+                {{/each}}
                 <div class="col-sm-4">
                     <div class="card">
                         <img class="card-img-top" src="http://placekitten.com/200/50" alt="Card image cap">

@@ -26,10 +26,13 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 app.get('/', function(req, res) {
-	res.status(200).render('postsPage', {
-		cards: cardData,
-		index: 1
+	var postsCollection = mongoDB.collection('posts');
+	postsCollection.find({}).toArray(function (err, postsDocs) {
+		res.status(200).render('postsPage', {
+			posts: postsDocs,
+		});
 	});
+
 });
 
 app.get('/posts/:index', function(req, res) {
