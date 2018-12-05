@@ -6,15 +6,18 @@
                     <div class="card-body">
                         <h4 class="card-text text-center">{{post.text}}</h4>
                         <div class="results">
-                            <div class="results-bar blue-bar" style="width:{{percentage post.answers.[0] post.answers.[1]}}%"></div>
-                            <div class="results-bar red-bar" style="width:{{percentage post.answers.[1] post.answers.[0]}}%; margin-left: {{percentage post.answers.[0] post.answers.[1]}}%;"></div>
-                            <div class="results-left">
-                                {{post.answers.[0].name}}: {{percentage post.answers.[0] post.answers.[1]}}% ({{post.answers.[0].count}} votes)
-                            </div>
-                            <div class="results-right">
-                                {{post.answers.[1].name}}: {{percentage post.answers.[1] post.answers.[0]}}% ({{post.answers.[1].count}} votes)
-                            </div>
+                            {{#each post.answers}}
+                                <div class="results-bar {{color ../post.answers @index}}-bar" style="width:{{percentage ../post.answers @index}}%;"></div>
+                            {{/each}}
                         </div>
+                        <div class="space"></div>
+                        <div class="space"></div>
+                        <div class="space"></div>
+                        {{#each post.answers}}
+                            {{name}}: {{percentage ../post.answers @index}}% ({{count}} votes)
+                            <br>
+                        {{/each}}
+
                     </div>
                 </div>
             </div>

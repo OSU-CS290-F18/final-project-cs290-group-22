@@ -20,7 +20,8 @@ main {
 .results-bar {
     margin-top: 20px;
     height: 20px;
-    color: black;
+    float: left;
+    width: 100%;
 }
 
 .results-right {
@@ -32,16 +33,19 @@ main {
 }
 
 .blue-bar {
-    width: 20%;
     background-color: #007bff;
-    display: inline;
-    float: left;
     border-radius: 10px 0 0 10px;
 }
 
+.yellow-bar {
+    background-color: #ffc107;
+}
+
+.green-bar {
+    background-color: #28a745;
+}
+
 .red-bar {
-    margin-left: 20%;
-    width: 80%;
     background-color: #dc3545;
     border-radius: 0 10px 10px 0;
 }

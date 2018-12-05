@@ -26,14 +26,67 @@ var cardData = JSON.parse(rawData); //get the post data
 
 var hbs = exphbs.create({
 	defaultLayout: 'main',
-    // Specify helpers which are only registered on this instance.
-    helpers: {
-        percentage: function (votesOne, votesTwo) {
-		  var total = votesOne.count + votesTwo.count;
-		  total = (votesOne.count/total)*100;
-		  return Math.round(total);
+	// Specify helpers which are only registered on this instance.
+	helpers: {
+		percentage: function(answers, index) {
+			var total = 0;
+			answers.forEach(function(answer) {
+				total += answer.count;
+			});
+			if (total == 0) {
+				return 0;
+			}
+			total = (answers[index].count / total) * 100;
+			return Math.round(total);
+		},
+		marginPercentage: function(answers, index) {
+			if (index == 0){
+				return 0;
+			}
+			index--;
+			var total = 0;
+			answers.forEach(function(answer) {
+				total += answer.count;
+			});
+
+			if (total == 0) {
+				return 0;
+			}
+			total = (answers[index].count / total) * 100;
+			return total - 0.5;
+		},
+		color: function(answers, index) {
+			if (answers.length == 2) {
+				if (index == 0) {
+					return "blue";
+				}
+				return "red";
+			}
+
+			if (answers.length == 3) {
+				if (index == 0) {
+					return "blue";
+				}
+				if (index == 1) {
+					return "green";
+				}
+				return "red";
+			}
+
+			if (answers.length == 4) {
+				if (index == 0) {
+					return "blue";
+				}
+				if (index == 1) {
+					return "green";
+				}
+				if (index == 2) {
+					return "yellow";
+				}
+				return "red";
+			}
 		}
-    }
+	}
 });
 
 app.engine('handlebars', hbs.engine);
@@ -57,9 +110,9 @@ app.get('/post/:id/vote/:answer', function(req, res) {
 	var answer = req.params.answer;
 	var postsCollection = mongoDB.collection('posts');
 	var query = {};
-	query ["answers."+answer+".count"] = 1;
+	query["answers." + answer + ".count"] = 1;
 
-	postsCollection.updateOne({"_id": id}, {$inc: query}, function(err, result) {
+	postsCollection.updateOne({ "_id": id }, { $inc: query }, function(err, result) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -72,7 +125,7 @@ app.get('/post/:id', function(req, res) {
 	var id = new Mongo.ObjectID(req.params.id);
 	var postsCollection = mongoDB.collection('posts');
 
-	postsCollection.findOne({"_id": id}, function(err, result) {
+	postsCollection.findOne({ "_id": id }, function(err, result) {
 		if (err) {
 			console.log(err);
 		} else {
